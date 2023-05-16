@@ -1,0 +1,1 @@
+define("ds2-wideteaser",["jquery","lazyload"],function(b,c){return function(a){this.$component=b(a);new c({container:a})}});
