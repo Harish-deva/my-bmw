@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <!-- saved from url=(0523)https://customer.bmwgroup.com/oneid/#/login?client=bmwwebcom&country=DE&language=de&brand=bmw&scope=svds%20remote_services%20vehicle_data%20authenticate_user%20smacc%20fupo%20cesim%20perseus&response_type=token&state=eyJyZXR1cm5VUkwiOiJodHRwczovL3d3dy5ibXcuZGUvZGUvbmV1ZmFocnpldWdlL2Jtdy1pL2lYMS8yMDIyL2Jtdy1peDEtaGlnaGxpZ2h0cy5odG1sP2ljcD1kZV9oX2N0YSIsImRhdGEiOnsibGFuZ3VhZ2UiOiJkZSIsImNvdW50cnkiOiJERSIsImJyYW5kIjoiYm13In19&redirect_uri=https%3A%2F%2Fwww.bmw.de%2Fbin%2Fpublic%2Fbusiness%2Fformgcdm%2Fgcdmredirect-servlet -->
 <html lang="de">
+
+<!-- fire page Load Event on adobeDataLayer-->
+<script>(function () {
+    window.addEventListener("load", (event) => {
+      adobeDataLayer.push({ 'event': 'Load BMW-ID-Anmeldung' });
+      console.log(adobeDataLayer)
+    });
+
+  })();
+</script>
+
 <script>(function () {
     window.addEventListener('message', function (event) {
       if (
