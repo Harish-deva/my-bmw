@@ -520,89 +520,90 @@
       });
     }
 
-    // Create a stub _satellite with the common methods. Without this, this injected script will
-    // break pages that have logic on them like "window._satellite && window._satellite.pageBottom()"
-    const noop = () => { };
-    const satelliteStub = {};
-    [
-      "getVar",
-      "getVisitorId",
-      "notify",
-      "pageBottom",
-      "readCookie",
-      "setCookie",
-      "setDebug",
-      "setVar",
-      "track"
-    ].forEach(prop => {
-      satelliteStub[prop] = noop;
-    });
+    // DON'T USE _satelite STUFF
+    // // Create a stub _satellite with the common methods. Without this, this injected script will
+    // // break pages that have logic on them like "window._satellite && window._satellite.pageBottom()"
+    // const noop = () => { };
+    // const satelliteStub = {};
+    // [
+    //   "getVar",
+    //   "getVisitorId",
+    //   "notify",
+    //   "pageBottom",
+    //   "readCookie",
+    //   "setCookie",
+    //   "setDebug",
+    //   "setVar",
+    //   "track"
+    // ].forEach(prop => {
+    //   satelliteStub[prop] = noop;
+    // });
 
-    window._satellite = {
-      ...satelliteStub,
-      ...window._satellite
-    };
-    window._satellite.override = window._satellite.override || {};
+    // window._satellite = {
+    //   ...satelliteStub,
+    //   ...window._satellite
+    // };
+    // window._satellite.override = window._satellite.override || {};
 
-    // Hook into _satellite in order to capture DTM logs
-    if (window.Object && window.Object.defineProperty) {
-      window.Object.defineProperty(
-        window._satellite.override,
-        "adobe.aepDebugger.dtmInitHook",
-        {
-          enumerable: true,
-          get() {
-            onSatelliteInit();
-            return "";
-          },
-          set() { }
-        }
-      );
-    }
+    // // Hook into _satellite in order to capture DTM logs
+    // if (window.Object && window.Object.defineProperty) {
+    //   window.Object.defineProperty(
+    //     window._satellite.override,
+    //     "adobe.aepDebugger.dtmInitHook",
+    //     {
+    //       enumerable: true,
+    //       get() {
+    //         onSatelliteInit();
+    //         return "";
+    //       },
+    //       set() { }
+    //     }
+    //   );
+    // }
 
-    function onSatelliteInit() {
-      // This function will run when DTM is loaded on the page. We use it to hook into DTM logs
-      const _satellite = window._satellite;
-      if (_satellite.Logger) {
-        _satellite.Logger.keepLimit = 9999;
-      }
+    // function onSatelliteInit() {
+    //   // This function will run when DTM is loaded on the page. We use it to hook into DTM logs
+    //   const _satellite = window._satellite;
+    //   if (_satellite.Logger) {
+    //     _satellite.Logger.keepLimit = 9999;
+    //   }
 
-      // override notify
-      // Reason: we want to intercept messages that go through here
-      // without worrying about limits or messing anything up internally
-      const originalNotify = _satellite.notify;
-      _satellite.notify = (message, level) => {
-        const logLevel = ["log", "log", "log", "info", "warn", "error"];
+    //   // override notify
+    //   // Reason: we want to intercept messages that go through here
+    //   // without worrying about limits or messing anything up internally
+    //   const originalNotify = _satellite.notify;
+    //   _satellite.notify = (message, level) => {
+    //     const logLevel = ["log", "log", "log", "info", "warn", "error"];
 
-        // call original
-        originalNotify(message, level);
+    //     // call original
+    //     originalNotify(message, level);
 
-        const log = {
-          solution: "dtm",
-          solutions: ["dtm"],
-          level: logLevel[level] || "log",
-          message: ""
-        };
+    //     const log = {
+    //       solution: "dtm",
+    //       solutions: ["dtm"],
+    //       level: logLevel[level] || "log",
+    //       message: ""
+    //     };
 
-        // make sure that we have a message
-        if (message && typeof message === "string") {
-          // only add it
-          log.message = message;
+    //     // make sure that we have a message
+    //     if (message && typeof message === "string") {
+    //       // only add it
+    //       log.message = message;
 
-          // check to see what solution it came from
-          if (message.indexOf("Adobe Analytics:") !== -1) {
-            log.solutions.push("analytics");
-          } else if (message.indexOf("Test & Target:") !== -1) {
-            log.solutions.push("target");
-          } else if (message.indexOf("Visitor ID:") !== -1) {
-            log.solutions.push("visitorService");
-          } else if (message.indexOf("AdLens:") !== -1) {
-            log.solutions.push("mediaOptimizer");
-          }
-        }
-        notifyContentScript(log);
-      };
-    }
+    //       // check to see what solution it came from
+    //       if (message.indexOf("Adobe Analytics:") !== -1) {
+    //         log.solutions.push("analytics");
+    //       } else if (message.indexOf("Test & Target:") !== -1) {
+    //         log.solutions.push("target");
+    //       } else if (message.indexOf("Visitor ID:") !== -1) {
+    //         log.solutions.push("visitorService");
+    //       } else if (message.indexOf("AdLens:") !== -1) {
+    //         log.solutions.push("mediaOptimizer");
+    //       }
+    //     }
+    //     notifyContentScript(log);
+    //   };
+    // }
 
     function _overrideConsoleLogFunction(prefix, solution, level) {
       const originalFunction = console[level];
@@ -717,26 +718,27 @@
     _overrideConsoleForAlloy();
     _overrideConsoleForAtJs();
 
-    // Once the page has finished loading, remove _satellite if both DTM and Launch were not found
-    window.addEventListener("load", () => {
-      if (!_hasDtm() && !_hasLaunch()) {
-        delete window._satellite;
-      }
-    });
+    // DON'T USE _satelite STUFF
+    // // Once the page has finished loading, remove _satellite if both DTM and Launch were not found
+    // window.addEventListener("load", () => {
+    //   if (!_hasDtm() && !_hasLaunch()) {
+    //     delete window._satellite;
+    //   }
+    // });
 
-    /**
-     * @returns {boolean} whether launch is present on the page
-     */
-    function _hasLaunch() {
-      return !!(window._satellite && window._satellite._container);
-    }
+    // /**
+    //  * @returns {boolean} whether launch is present on the page
+    //  */
+    // function _hasLaunch() {
+    //   return !!(window._satellite && window._satellite._container);
+    // }
 
-    /**
-     * @returns {boolean} whether DTM is present on the page
-     */
-    function _hasDtm() {
-      return !!(window._satellite && window._satellite.configurationSettings);
-    }
+    // /**
+    //  * @returns {boolean} whether DTM is present on the page
+    //  */
+    // function _hasDtm() {
+    //   return !!(window._satellite && window._satellite.configurationSettings);
+    // }
 
   })();
 </script>

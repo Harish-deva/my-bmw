@@ -520,6 +520,7 @@
       });
     }
 
+    /* DON'T USE _satelite STUFF
     // Create a stub _satellite with the common methods. Without this, this injected script will
     // break pages that have logic on them like "window._satellite && window._satellite.pageBottom()"
     const noop = () => { };
@@ -603,6 +604,7 @@
         notifyContentScript(log);
       };
     }
+    */
 
     function _overrideConsoleLogFunction(prefix, solution, level) {
       const originalFunction = console[level];
@@ -717,26 +719,27 @@
     _overrideConsoleForAlloy();
     _overrideConsoleForAtJs();
 
-    // Once the page has finished loading, remove _satellite if both DTM and Launch were not found
-    window.addEventListener("load", () => {
-      if (!_hasDtm() && !_hasLaunch()) {
-        delete window._satellite;
-      }
-    });
+    // DON'T USE _satelite STUFF
+    // // Once the page has finished loading, remove _satellite if both DTM and Launch were not found
+    // window.addEventListener("load", () => {
+    //   if (!_hasDtm() && !_hasLaunch()) {
+    //     delete window._satellite;
+    //   }
+    // });
 
-    /**
-     * @returns {boolean} whether launch is present on the page
-     */
-    function _hasLaunch() {
-      return !!(window._satellite && window._satellite._container);
-    }
+    // /**
+    //  * @returns {boolean} whether launch is present on the page
+    //  */
+    // function _hasLaunch() {
+    //   return !!(window._satellite && window._satellite._container);
+    // }
 
-    /**
-     * @returns {boolean} whether DTM is present on the page
-     */
-    function _hasDtm() {
-      return !!(window._satellite && window._satellite.configurationSettings);
-    }
+    // /**
+    //  * @returns {boolean} whether DTM is present on the page
+    //  */
+    // function _hasDtm() {
+    //   return !!(window._satellite && window._satellite.configurationSettings);
+    // }
 
   })();
 </script>
