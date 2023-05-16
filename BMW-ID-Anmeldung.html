@@ -2,15 +2,7 @@
 <!-- saved from url=(0523)https://customer.bmwgroup.com/oneid/#/login?client=bmwwebcom&country=DE&language=de&brand=bmw&scope=svds%20remote_services%20vehicle_data%20authenticate_user%20smacc%20fupo%20cesim%20perseus&response_type=token&state=eyJyZXR1cm5VUkwiOiJodHRwczovL3d3dy5ibXcuZGUvZGUvbmV1ZmFocnpldWdlL2Jtdy1pL2lYMS8yMDIyL2Jtdy1peDEtaGlnaGxpZ2h0cy5odG1sP2ljcD1kZV9oX2N0YSIsImRhdGEiOnsibGFuZ3VhZ2UiOiJkZSIsImNvdW50cnkiOiJERSIsImJyYW5kIjoiYm13In19&redirect_uri=https%3A%2F%2Fwww.bmw.de%2Fbin%2Fpublic%2Fbusiness%2Fformgcdm%2Fgcdmredirect-servlet -->
 <html lang="de">
 
-<!-- fire page Load Event on adobeDataLayer-->
-<script>(function () {
-    window.addEventListener("load", (event) => {
-      adobeDataLayer.push({ 'event': 'Load BMW-ID-Anmeldung' });
-      console.log(adobeDataLayer)
-    });
 
-  })();
-</script>
 
 <script>(function () {
     window.addEventListener('message', function (event) {
@@ -1033,7 +1025,31 @@
   <link rel="stylesheet" type="text/css" href="./BMW-ID-Anmeldung_files/login.1b242813.css">
 </head>
 
-<body style="background: white; max-height:100vh; overflow-y: scroll;"><noscript>
+<body style="background: white; max-height:100vh; overflow-y: scroll;">
+
+  <!-- fire page Load Event on adobeDataLayer-->
+  <script>
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    let pagePropertiesTrackingObj = "{}";
+    let dynamicTrackingObj = {
+      event: 'aem page loaded',
+      page: {
+        pageInfo: {
+          pageID: 'BMW-ID-Anmeldung',
+          version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
+          sysEnv: 'prod',
+        },
+        category: {
+          pageType: 'content\u002Dpage',
+        }
+      }
+    }
+    let trackingObj = Object.assign(dynamicTrackingObj);
+    adobeDataLayer.push(trackingObj);
+
+    console.log(adobeDataLayer) 
+  </script>
+  <noscript>
     <div id="noscript">
       <div class="center">
         <div class="title"><span id="title">JavaScript is disabled</span></div>
