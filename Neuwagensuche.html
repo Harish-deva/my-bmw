@@ -6185,7 +6185,6 @@
   data-tracking-regionid="page¦1¦bmw neuwagensuche | bmw.de¦¦¦" class=" ds2-no-brand "
   data-component-initialized="true">
 
-
   <!-- fire page Load Event on adobeDataLayer-->
   <script>
     window.adobeDataLayer = window.adobeDataLayer || [];
@@ -6193,20 +6192,34 @@
     let dynamicTrackingObj = {
       event: 'aem page loaded',
       page: {
+        attributes: {
+          brand: "bmw",
+          pageTitle: "BMW Neuwagensuche",
+          timeZone: ""
+        },
         pageInfo: {
+          geoRegion: "",
+          language: "",
+          pageName: "BMW Neuwagensuche",
           pageID: 'BMW-Neuwagensuche',
+          referringURL: document.referrer,
           version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
           sysEnv: 'prod',
         },
         category: {
           pageType: 'content\u002Dpage',
+          primaryCategory: "content",
+          subCategory1: "search",
+          subCategory2: "",
+          subCategory3: ""
         }
+
       }
     }
     let trackingObj = Object.assign(dynamicTrackingObj);
     adobeDataLayer.push(trackingObj);
 
-    console.log(adobeDataLayer) 
+    console.log(adobeDataLayer)
   </script>
 
   <div style="display: none;" id="lightningjs-usabilla_live">

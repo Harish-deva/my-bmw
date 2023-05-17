@@ -1025,20 +1025,34 @@
     let dynamicTrackingObj = {
       event: 'aem page loaded',
       page: {
+        attributes: {
+          brand: "bmw",
+          pageTitle: "BMW ID Aktivierung",
+          timeZone: ""
+        },
         pageInfo: {
+          geoRegion: "",
+          language: "",
+          pageName: "BMW ID Aktivierung",
           pageID: 'BMW-ID-Aktivierung',
+          referringURL: document.referrer,
           version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
           sysEnv: 'prod',
         },
         category: {
           pageType: 'content\u002Dpage',
+          primaryCategory: "registration",
+          subCategory1: "content",
+          subCategory2: "",
+          subCategory3: ""
         }
+
       }
     }
     let trackingObj = Object.assign(dynamicTrackingObj);
     adobeDataLayer.push(trackingObj);
 
-    console.log(adobeDataLayer) 
+    console.log(adobeDataLayer)
   </script>
 
   <noscript>
