@@ -9265,7 +9265,6 @@
     data-tracking-regionid="page¦1¦bmw x5 (g05): modelle, technische daten, hybrid &amp; preise | bmw.de¦¦¦"
     class=" ds2-no-brand " data-component-initialized="true">
 
-
     <!-- fire page Load Event on adobeDataLayer-->
     <script>
         window.adobeDataLayer = window.adobeDataLayer || [];
@@ -9273,21 +9272,36 @@
         let dynamicTrackingObj = {
             event: 'aem page loaded',
             page: {
+                attributes: {
+                    brand: "bmw",
+                    pageTitle: "BMW Product Page",
+                    timeZone: ""
+                },
                 pageInfo: {
+                    geoRegion: "",
+                    language: "",
+                    pageName: "BMW Product Page",
                     pageID: 'BMW-Product-Page',
+                    referringURL: document.referrer,
                     version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
                     sysEnv: 'prod',
                 },
                 category: {
                     pageType: 'content\u002Dpage',
+                    primaryCategory: "content",
+                    subCategory1: "products",
+                    subCategory2: "",
+                    subCategory3: ""
                 }
+
             }
         }
         let trackingObj = Object.assign(dynamicTrackingObj);
         adobeDataLayer.push(trackingObj);
 
-        console.log(adobeDataLayer) 
+        console.log(adobeDataLayer)
     </script>
+
     <div style="display: none;" id="lightningjs-usabilla_live">
         <div><iframe frameborder="0" id="lightningjs-frame-usabilla_live"
                 src="./product_page_files/saved_resource.html"></iframe></div>
