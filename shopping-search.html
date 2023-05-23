@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://assets.adobedtm.com/5eef5b667374/31ec2769917a/launch-50aa95111531-development.min.js"></script>
+  </head>
+  <body>
+    <script>
+      window.adobeDataLayer = window.adobeDataLayer || [];
+      let pagePropertiesTrackingObj = "{}";
+      let dynamicTrackingObj = {
+        event: 'aem page loaded',
+        page: {
+          attributes: {
+            brand: "bmw",
+            pageTitle: "BMW ID Aktivierung",
+            timeZone: ""
+          },
+          pageInfo: {
+            geoRegion: "",
+            language: "",
+            pageName: "BMW ID Aktivierung",
+            pageID: 'BMW-ID-Aktivierung',
+            referringURL: document.referrer,
+            version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
+            sysEnv: 'prod',
+          },
+          category: {
+            pageType: 'content\u002Dpage',
+            primaryCategory: "registration",
+            subCategory1: "content",
+            subCategory2: "",
+            subCategory3: ""
+          }
+  
+        }
+      }
+      let trackingObj = Object.assign(dynamicTrackingObj);
+      adobeDataLayer.push(trackingObj);
+  
+      console.log(adobeDataLayer)
+    </script>
+    <img src="shopping-search.png" alt="Full Shopping Page" width="100%" height="100%" >
+  </img>
+  </body>
+  <footer>
+    <script type="text/javascript">_satellite.pageBottom();</script>
+  </footer>
+</html>
