@@ -1,5 +1,5 @@
 var url_list = [
-	"www.bmw.de/de/neuwagensuche.html",
+	"www.bmw.de/de/neuwagen-onlinekauf.html",
 	"www.bmw.de/de/topics/neuwagen/neuwagen-onlinekauf.html",
 	"www.bmw.de/de/stocklocator.html"
 ];
