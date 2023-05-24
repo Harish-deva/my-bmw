@@ -1023,20 +1023,21 @@
   <!-- fire page Load Event on adobeDataLayer-->
   <script>
     window.adobeDataLayer = window.adobeDataLayer || [];
+    const currentUrl = window.location.href;
     let pagePropertiesTrackingObj = "{}";
     let dynamicTrackingObj = {
       event: 'aem page loaded',
       page: {
         attributes: {
           brand: "bmw",
-          pageTitle: "BMW Registrierung",
+          pageTitle: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
           timeZone: ""
         },
         pageInfo: {
           geoRegion: "",
           language: "",
-          pageName: "BMW Registrierung",
-          pageID: 'BMW-ID-Registrierung',
+          pageName: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
+          pageID: currentUrl.includes("#/login") ? "login" : 'registration',
           referringURL: document.referrer,
           version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
           sysEnv: 'prod',
@@ -1054,7 +1055,9 @@
     let trackingObj = Object.assign(dynamicTrackingObj);
     adobeDataLayer.push(trackingObj);
 
-    console.log(adobeDataLayer) 
+    console.log(adobeDataLayer)
+
+    console.log(currentUrl)
   </script>
 
   <noscript>
