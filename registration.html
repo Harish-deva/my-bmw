@@ -2,7 +2,7 @@
 <!-- saved from url=(0526)https://customer.bmwgroup.com/oneid/#/register?client=bmwwebcom&country=DE&language=de&brand=bmw&scope=svds%20remote_services%20vehicle_data%20authenticate_user%20smacc%20fupo%20cesim%20perseus&response_type=token&redirect_uri=https%3A%2F%2Fwww.bmw.de%2Fbin%2Fpublic%2Fbusiness%2Fformgcdm%2Fgcdmredirect-servlet&state=eyJyZXR1cm5VUkwiOiJodHRwczovL3d3dy5ibXcuZGUvZGUvbmV1ZmFocnpldWdlL2Jtdy1pL2lYMS8yMDIyL2Jtdy1peDEtaGlnaGxpZ2h0cy5odG1sP2ljcD1kZV9oX2N0YSIsImRhdGEiOnsibGFuZ3VhZ2UiOiJkZSIsImNvdW50cnkiOiJERSIsImJyYW5kIjoiYm13In19 -->
 <html lang="de">
 
-<script>(function () {
+<!-- <script>(function () {
     window.addEventListener('message', function (event) {
       if (
         event.data &&
@@ -749,7 +749,7 @@
     };
 
   })();
-</script>
+</script> -->
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1002,9 +1002,9 @@
       }
     }
   </style>
-  <script src="./registration_files/trackers.js"></script>
+  <!-- <script src="./registration_files/trackers.js"></script>
   <script src="./registration_files/epaas.js"></script>
-  <script src="./registration_files/tracyLib.js"></script>
+  <script src="./registration_files/tracyLib.js"></script> -->
   <script defer="defer" src="./registration_files/smoothscroll.min.js"></script>
   <!-- <script defer="defer" src="./registration_files/app.e671fc01.js" crossorigin="use-credentials"></script> -->
 
@@ -1013,7 +1013,7 @@
     async></script>
 
   <link rel="stylesheet" type="text/css" href="./registration_files/473.95f9d756.css">
-  <script src="./registration_files/consentlesstracking-onepage.min.js"></script>
+  <!-- <script src="./registration_files/consentlesstracking-onepage.min.js"></script> -->
   <link rel="stylesheet" type="text/css" href="./registration_files/registration.152b4c08.css">
   <!-- <script id="hcaptcha-api-script-id" src="./registration_files/api.js" async="" defer=""></script> -->
 </head>
@@ -1022,20 +1022,19 @@
 
   <!-- update adobeDataLayer, from and click eventlistener-->
   <script>
-    const currentUrl = window.location.href;
     let dynamicTrackingObj = {
       event: 'aem page loaded',
       page: {
         attributes: {
           brand: "bmw",
-          pageTitle: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
+          pageTitle: "BMW Registrierung",
           timeZone: ""
         },
         pageInfo: {
           geoRegion: "",
           language: "",
-          pageName: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
-          pageID: currentUrl.includes("#/login") ? "login" : 'registration',
+          pageName: "BMW Registrierung",
+          pageID: 'registration',
           referringURL: document.referrer,
           version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
           sysEnv: 'prod',
