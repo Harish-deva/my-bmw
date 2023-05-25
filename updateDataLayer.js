@@ -48,6 +48,50 @@ function registerForm() {
     });
 }
 
+// register form
+function loginForm() {
+    let loginForm = document.getElementById("registration-form");
+
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let firstName = document.getElementById("firstName");
+        let lastName = document.getElementById("lastName");
+        let email = document.getElementById("email");
+        let channelPost = document.getElementById("channel-post");
+
+        if (firstName.value == "" || lastName.value == "" || email.value == "") {
+            alert("Please enter: Firstname, Lastname and email");
+        } else {
+
+            trackRegisterObj = {
+                "event": "registrationComplete",
+                "eventInfo": {
+                    "id": generateUUID(),
+                    "formName": "registration",
+                    "userSalutation": "userSalutation",
+                    "userFirstName": firstName.value,
+                    "userLastName": lastName.value,
+                    "userEmail": email.value,
+                    "userChannelPreferences": getCheckedboxsIds()
+                }
+            }
+
+
+
+            adobeDataLayer.push(trackRegisterObj);
+
+            console.log(adobeDataLayer)
+
+            firstName.value = "";
+            lastName.value = "";
+            email.value = "";
+
+            //location.href = 'registration-success.html'
+        }
+    });
+}
+
 //utilities
 //get checked checkboxes
 function getCheckedboxsIds() {
