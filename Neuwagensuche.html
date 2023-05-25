@@ -6,9 +6,8 @@
 </head>
 
 <body>
+  <!-- update adobeDataLayer, from and click eventlistener-->
   <script>
-    window.adobeDataLayer = window.adobeDataLayer || [];
-    let pagePropertiesTrackingObj = "{}";
     let dynamicTrackingObj = {
       event: 'aem page loaded',
       page: {
@@ -36,11 +35,8 @@
 
       }
     }
-    let trackingObj = Object.assign(dynamicTrackingObj);
-    adobeDataLayer.push(trackingObj);
-
-    console.log(adobeDataLayer)
   </script>
+    <script src="updateDataLayer.js"></script>
   <img src="neuwagensuche.png" alt="Full Shopping Page" width="100%" height="100%">
   </img>
 </body>
