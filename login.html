@@ -291,7 +291,7 @@
           },
           category: {
             pageType: 'content\u002Dpage',
-            primaryCategory: "registration",
+            primaryCategory: "login",
             subCategory1: "content",
             subCategory2: "",
             subCategory3: ""
@@ -416,8 +416,8 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="buttons-container" data-v-4e203ef4=""><button class="custom-button __b primary"
-                                disabled="" data-v-19f24c00="" data-v-4e203ef4="">Jetzt anmelden</button></div>
+                            <div class="buttons-container" data-v-4e203ef4=""><button type="submit" class="custom-button __b primary"
+                                data-v-19f24c00="" data-v-4e203ef4="">Jetzt anmelden</button></div>
                           </div>
                         </form><button class="custom-button __b secondary" data-tracking-regionid="one &gt; main"
                           data-tracking-linkid="one &gt; register button clicked" data-v-19f24c00=""
@@ -462,7 +462,9 @@
   <script>
     //checkIsNotSupported();
     //checkCookie();
-    startLoader();</script>
+    startLoader();
+    loginForm()
+    </script>
 </body>
 
 </html>

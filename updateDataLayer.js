@@ -6,15 +6,14 @@ adobeDataLayer.push(trackingObj);
 
 // register form
 function registerForm() {
-    let loginForm = document.getElementById("registration-form");
+    let registrationForm = document.getElementById("registration-form");
 
-    loginForm.addEventListener("submit", (e) => {
+    registrationForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
         let email = document.getElementById("email");
-        let channelPost = document.getElementById("channel-post");
 
         if (firstName.value == "" || lastName.value == "" || email.value == "") {
             alert("Please enter: Firstname, Lastname and email");
@@ -32,8 +31,6 @@ function registerForm() {
                     "userChannelPreferences": getCheckedboxsIds()
                 }
             }
-
-
 
             adobeDataLayer.push(trackRegisterObj);
 
@@ -50,44 +47,33 @@ function registerForm() {
 
 // register form
 function loginForm() {
-    let loginForm = document.getElementById("registration-form");
+    let loginForm = document.getElementById("login-form");
 
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let firstName = document.getElementById("firstName");
-        let lastName = document.getElementById("lastName");
         let email = document.getElementById("email");
-        let channelPost = document.getElementById("channel-post");
 
-        if (firstName.value == "" || lastName.value == "" || email.value == "") {
-            alert("Please enter: Firstname, Lastname and email");
+        if (email.value == "") {
+            alert("Please enter: email");
         } else {
 
-            trackRegisterObj = {
-                "event": "registrationComplete",
+            trackLoginObj = {
+                "event": "loginComplete",
                 "eventInfo": {
                     "id": generateUUID(),
-                    "formName": "registration",
-                    "userSalutation": "userSalutation",
-                    "userFirstName": firstName.value,
-                    "userLastName": lastName.value,
                     "userEmail": email.value,
-                    "userChannelPreferences": getCheckedboxsIds()
-                }
+                    "formName": "login"
+                },
             }
 
-
-
-            adobeDataLayer.push(trackRegisterObj);
+            adobeDataLayer.push(trackLoginObj);
 
             console.log(adobeDataLayer)
 
-            firstName.value = "";
-            lastName.value = "";
             email.value = "";
 
-            //location.href = 'registration-success.html'
+            //location.href = 'home.html'
         }
     });
 }
