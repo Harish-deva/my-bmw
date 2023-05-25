@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- fire page Load Event on adobeDataLayer-->
+  <script>
+    const currentUrl = window.location.href;
+    let dynamicTrackingObj = {
+      event: 'aem page loaded',
+      page: {
+        attributes: {
+          brand: "bmw",
+          pageTitle: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
+          timeZone: ""
+        },
+        pageInfo: {
+          geoRegion: "",
+          language: "",
+          pageName: currentUrl.includes("#/login") ? "BMW Login" : "BMW Registrierung",
+          pageID: currentUrl.includes("#/login") ? "login" : 'registration',
+          referringURL: document.referrer,
+          version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
+          sysEnv: 'prod',
+        },
+        category: {
+          pageType: 'content\u002Dpage',
+          primaryCategory: "registration",
+          subCategory1: "content",
+          subCategory2: "",
+          subCategory3: ""
+        }
+
+      }
+    }
+  </script>
+<script src="updateDataLayer.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form action="" id="registration-form">
+          <h1>Login</h1>
+          <input type="text" id="firstName" class="form-control" placeholder="Enter your Firstname...">
+          <input type="text" id="lastName" class="form-control" placeholder="Enter your Lastname...">
+          <input type="email" id="email" class="form-control" placeholder="Enter your email...">
+          <button type="submit">Register</button>
+        </form>
+      </div>
+
+      <script>
+        registerForm()
+      </script>
+</body>
+</html>
