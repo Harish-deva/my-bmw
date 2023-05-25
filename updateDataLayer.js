@@ -11,6 +11,7 @@ function registerForm() {
     registrationForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        let salutation = document.getElementById("salutation");
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
         let email = document.getElementById("email");
@@ -24,7 +25,7 @@ function registerForm() {
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "registration",
-                    "userSalutation": "userSalutation",
+                    "userSalutation": salutation.value,
                     "userFirstName": firstName.value,
                     "userLastName": lastName.value,
                     "userEmail": email.value,
@@ -40,7 +41,7 @@ function registerForm() {
             lastName.value = "";
             email.value = "";
 
-            //location.href = 'registration-success.html'
+            location.href = 'registration-success.html'
         }
     });
 }
@@ -73,7 +74,7 @@ function loginForm() {
 
             email.value = "";
 
-            //location.href = 'home.html'
+            location.href = 'home.html'
         }
     });
 }
@@ -130,7 +131,7 @@ function requestOfferForm() {
             email.value = "";
             planedPurchase = "";
 
-            //location.href = 'angebot-anfordern-success.html'
+            location.href = 'angebot-anfordern-success.html'
         }
     });
 }
@@ -144,7 +145,7 @@ function getCheckedboxsIds() {
     return selected
 }
 
-function customSelect() {
+function customSelect(id) {
     var x, i, j, l, ll, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("custom-select");
