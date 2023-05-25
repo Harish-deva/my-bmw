@@ -136,6 +136,67 @@ function requestOfferForm() {
     });
 }
 
+// request testdrive form
+function requestTestdriveForm() {
+    let requestTestdriveForm = document.getElementById("request-testdrive-form");
+
+    requestTestdriveForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let testdriveDate = document.getElementById("testdriveDate");
+        let firstName = document.getElementById("firstName");
+        let lastName = document.getElementById("lastName");
+        let zipCode = document.getElementById("zipCode");
+        let city = document.getElementById("city");
+        let street = document.getElementById("street");
+        let email = document.getElementById("email");
+        let telephone = document.getElementById("telephone");
+        let planedPurchase = document.getElementById("planedPurchase");
+
+        if (firstName.value == "" || lastName.value == "" || email.value == "") {
+            alert("Please enter: Firstname, Lastname and email");
+        } else {
+
+            trackRegisterObj = {
+                "event": "requestOfferComplete",
+                "eventInfo": {
+                    "id": generateUUID(),
+                    "formName": "request-offer",
+                    "userSeries": "BMW X5",
+                    "userModel": "BMW X5 xDrive40d",
+                    "userTestdriveDate": testdriveDate.value,
+                    "userFirstName": firstName.value,
+                    "userLastName": lastName.value,
+                    "userZipCode": zipCode.value,
+                    "userCity": city.value,
+                    "userStreet": street.value,
+                    "userTelephone": telephone.value,
+                    "userEmail": email.value,
+                    "userPlanedPurchase": planedPurchase.value,
+                    "userChannelPreferences": getCheckedboxsIds()
+                }
+            }
+
+            adobeDataLayer.push(trackRegisterObj);
+
+            console.log(adobeDataLayer)
+
+
+            testdriveDate.value = "";
+            firstName.value = "";
+            lastName.value = "";
+            zipCode.value = "";
+            city.value = "";
+            street.value = "";
+            telephone.value = "";
+            email.value = "";
+            planedPurchase = "";
+
+            location.href = 'testdrive-confirmation-page.html'
+        }
+    });
+}
+
 
 //utilities
 //get checked checkboxes
