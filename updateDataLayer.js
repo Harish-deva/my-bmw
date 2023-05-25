@@ -14,6 +14,7 @@ function registerForm() {
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
         let email = document.getElementById("email");
+        let channelPost = document.getElementById("channel-post");
 
         if (firstName.value == "" || lastName.value == "" || email.value == "") {
             alert("Please enter: Firstname, Lastname and email");
@@ -28,9 +29,11 @@ function registerForm() {
                     "userFirstName": firstName.value,
                     "userLastName": lastName.value,
                     "userEmail": email.value,
-                    "userChannelPreferences": "userChannelPreferences"
+                    "userChannelPreferences": getCheckedboxsIds()
                 }
             }
+
+
 
             adobeDataLayer.push(trackRegisterObj);
 
@@ -40,9 +43,17 @@ function registerForm() {
             lastName.value = "";
             email.value = "";
 
-            location.href = 'registration-success.html'
+            //location.href = 'registration-success.html'
         }
     });
+}
+
+//utilities
+//get checked checkboxes
+function getCheckedboxsIds() {
+    const checked = document.querySelectorAll('input[name="check"]:checked')
+    selected = Array.from(checked).map(x => x.id)
+    return selected
 }
 
 //generate uuid
