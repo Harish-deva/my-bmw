@@ -100,7 +100,7 @@ function requestOfferForm() {
         } else {
 
             trackRegisterObj = {
-                "event": "requestOfferComplete",
+                "event": "re",
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
@@ -158,7 +158,7 @@ function requestTestdriveForm() {
         } else {
 
             trackRegisterObj = {
-                "event": "requestOfferComplete",
+                "event": "requestTestdriveComplete",
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
