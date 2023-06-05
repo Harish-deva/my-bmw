@@ -100,7 +100,7 @@ function requestOfferForm() {
         } else {
 
             trackRegisterObj = {
-                "event": "re",
+                "event": "requestOfferComplete",
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
@@ -192,7 +192,7 @@ function requestTestdriveForm() {
             email.value = "";
             planedPurchase = "";
 
-            location.href = 'testdrive-confirmation-page.html'
+            location.href = 'test-drive-confirmation-page.html'
         }
     });
 }
