@@ -4,6 +4,9 @@ window.adobeDataLayer = window.adobeDataLayer || [];
 let trackingObj = Object.assign(dynamicTrackingObj);
 adobeDataLayer.push(trackingObj);
 
+console.log('Page load, ready to be fired:', '\n', JSON.stringify(adobeDataLayer, null, 2))
+
+
 // register form
 function registerForm() {
     let registrationForm = document.getElementById("registration-form");
@@ -32,16 +35,17 @@ function registerForm() {
                     "userChannelPreferences": getCheckedboxsIds()
                 }
             }
+            adobeDataLayer.push(Object.assign(trackRegisterObj));
 
-            adobeDataLayer.push(trackRegisterObj);
-
-            console.log(adobeDataLayer)
+            console.log('adobeDataLayer updated (registration-form, RuleName: registrationComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
             firstName.value = "";
             lastName.value = "";
             email.value = "";
 
-            redirectHash('registration-success')
+            setTimeout(() => {
+                redirectHash('registration-success')
+            }, "2000");
         }
     });
 }
@@ -68,12 +72,15 @@ function loginForm() {
                 },
             }
 
-            adobeDataLayer.push(trackLoginObj);
+            adobeDataLayer.push(Object.assign(trackLoginObj));
 
-            console.log(adobeDataLayer)
+            console.log('adobeDataLayer updated (login-form, RuleName: loginComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
             email.value = "";
-            redirectHash('home')
+
+            setTimeout(() => {
+                redirectHash('home')
+            }, "2000");
 
         }
     });
@@ -99,7 +106,7 @@ function requestOfferForm() {
             alert("Please enter: Firstname, Lastname and email");
         } else {
 
-            trackRegisterObj = {
+            trackOfferObj = {
                 "event": "requestOfferComplete",
                 "eventInfo": {
                     "id": generateUUID(),
@@ -118,9 +125,9 @@ function requestOfferForm() {
                 }
             }
 
-            adobeDataLayer.push(trackRegisterObj);
+            adobeDataLayer.push(Object.assign(trackOfferObj));
 
-            console.log(adobeDataLayer)
+            console.log('adobeDataLayer updated (request-offer-form, RuleName: requestOfferComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
             firstName.value = "";
             lastName.value = "";
@@ -131,7 +138,9 @@ function requestOfferForm() {
             email.value = "";
             planedPurchase = "";
 
-            redirectHash('angebot-anfordern-success')
+            setTimeout(() => {
+                redirectHash('angebot-anfordern-success')
+            }, "2000");
         }
     });
 }
@@ -157,7 +166,7 @@ function requestTestdriveForm() {
             alert("Please enter: Firstname, Lastname and email");
         } else {
 
-            trackRegisterObj = {
+            trackTestdriveObj = {
                 "event": "requestTestdriveComplete",
                 "eventInfo": {
                     "id": generateUUID(),
@@ -177,9 +186,9 @@ function requestTestdriveForm() {
                 }
             }
 
-            adobeDataLayer.push(trackRegisterObj);
+            adobeDataLayer.push(Object.assign(trackTestdriveObj));
 
-            console.log(adobeDataLayer)
+            console.log('adobeDataLayer updated (request-testdrive-form, RuleName: requestTestdriveComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
 
             testdriveDate.value = "";
@@ -314,4 +323,3 @@ function generateUUID() { // Public Domain/MIT
     });
 }
 
-console.log(adobeDataLayer)
