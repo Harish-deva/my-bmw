@@ -192,7 +192,9 @@ function requestTestdriveForm() {
             email.value = "";
             planedPurchase = "";
 
-            location.href = 'test-drive-confirmation-page.html'
+            setTimeout(() => {
+                location.href = 'test-drive-confirmation-page.html'
+            }, "2000");
         }
     });
 }
