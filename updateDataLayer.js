@@ -41,7 +41,7 @@ function registerForm() {
             lastName.value = "";
             email.value = "";
 
-            location.href = 'registration-success.html'
+            redirectHash('registration-success')
         }
     });
 }
@@ -73,8 +73,8 @@ function loginForm() {
             console.log(adobeDataLayer)
 
             email.value = "";
+            redirectHash('home')
 
-            location.href = 'home.html'
         }
     });
 }
@@ -131,7 +131,7 @@ function requestOfferForm() {
             email.value = "";
             planedPurchase = "";
 
-            location.href = 'angebot-anfordern-success.html'
+            redirectHash('angebot-anfordern-success')
         }
     });
 }
@@ -193,7 +193,7 @@ function requestTestdriveForm() {
             planedPurchase = "";
 
             setTimeout(() => {
-                location.href = 'test-drive-confirmation-page.html'
+                redirectHash('test-drive-confirmation-page')
             }, "2000");
         }
     });
@@ -201,6 +201,14 @@ function requestTestdriveForm() {
 
 
 //utilities
+//redirect with url hash
+//takes default redirect as string (without html)
+function redirectHash(r) {
+    const url = window.location.hash
+    const redirect = !url ? r + '.html' : url.split('/')[1] + '.html'
+    //console.log('redirect: ', redirect)
+    location.href = redirect
+}
 //get checked checkboxes
 function getCheckedboxsIds() {
     const checked = document.querySelectorAll('input[name="check"]:checked')
