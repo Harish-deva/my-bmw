@@ -18,6 +18,7 @@ function registerForm() {
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
         let email = document.getElementById("email");
+        const gender = salutation.value !== 0 ? salutation.value === 'Mr' ? 'male' : 'female' : ''
 
         if (firstName.value == "" || lastName.value == "" || email.value == "") {
             alert("Please enter: Firstname, Lastname and email");
@@ -29,6 +30,7 @@ function registerForm() {
                     "id": generateUUID(),
                     "formName": "registration",
                     "userSalutation": salutation.value,
+                    "userGender": gender,
                     "userFirstName": firstName.value,
                     "userLastName": lastName.value,
                     "userEmail": email.value,
