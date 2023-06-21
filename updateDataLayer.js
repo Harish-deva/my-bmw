@@ -95,6 +95,8 @@ function requestOfferForm() {
     requestOfferForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        let series = document.getElementById("serie");
+        let model = document.getElementById("model");
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
         let zipCode = document.getElementById("zipCode");
@@ -103,7 +105,7 @@ function requestOfferForm() {
         let email = document.getElementById("email");
         let telephone = document.getElementById("telephone");
         let planedPurchase = document.getElementById("planedPurchase");
-
+        console.log("fired", series.value)
         if (firstName.value == "" || lastName.value == "" || email.value == "") {
             alert("Please enter: Firstname, Lastname and email");
         } else {
@@ -113,8 +115,8 @@ function requestOfferForm() {
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
-                    "userSeries": "BMW X5",
-                    "userModel": "BMW X5 xDrive40d",
+                    "userSeries": series.value === '' ? "BMW X5" : series.value,
+                    "userModel": model.value === '' ? "BMW X5 xDrive40d" : model.value,
                     "userFirstName": firstName.value,
                     "userLastName": lastName.value,
                     "userZipCode": zipCode.value,
@@ -154,6 +156,8 @@ function requestTestdriveForm() {
     requestTestdriveForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        let series = document.getElementById("serie");
+        let model = document.getElementById("model");
         let testdriveDate = document.getElementById("testdriveDate");
         let firstName = document.getElementById("firstName");
         let lastName = document.getElementById("lastName");
@@ -164,8 +168,8 @@ function requestTestdriveForm() {
         let telephone = document.getElementById("telephone");
         let planedPurchase = document.getElementById("planedPurchase");
 
-        if (firstName.value == "" || lastName.value == "" || email.value == "") {
-            alert("Please enter: Firstname, Lastname and email");
+        if (firstName.value == "" || lastName.value == "" || email.value == "" || testdriveDate.value == "") {
+            alert("Please enter: Testdrive Date, Firstname, Lastname and email");
         } else {
 
             trackTestdriveObj = {
@@ -173,8 +177,8 @@ function requestTestdriveForm() {
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
-                    "userSeries": "BMW X5",
-                    "userModel": "BMW X5 xDrive40d",
+                    "userSeries": series.value === '' ? "BMW X5" : series.value,
+                    "userModel": model.value === '' ? "BMW X5 xDrive40d" : model.value,
                     "userTestdriveDate": testdriveDate.value,
                     "userFirstName": firstName.value,
                     "userLastName": lastName.value,
