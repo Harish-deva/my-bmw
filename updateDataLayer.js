@@ -7,37 +7,128 @@ adobeDataLayer.push(trackingObj);
 console.log('Page load, ready to be fired:', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
 
+//get userObj from localStorage if exisitng and prefill form input, otherwise set userObj and save to localStorage
+function getStoredUserObj() {
+
+    let salutation = document.getElementById("salutation");
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+    let email = document.getElementById("email");
+    let zipCode = document.getElementById("zipCode");
+    let city = document.getElementById("city");
+    let street = document.getElementById("street");
+    let telephone = document.getElementById("telephone");
+    let ckeckboxes = document.querySelectorAll('input[name="check"]').length
+
+    let series = document.getElementById("serie");
+    let model = document.getElementById("model");
+    let planedPurchase = document.getElementById("planedPurchase");
+    let testdriveDate = document.getElementById("testdriveDate");
+
+    let user = null
+    storedUser = localStorage.getItem('user')
+    if (storedUser) {
+        console.log('storedUser', storedUser)
+        //prefill form
+        user = JSON.parse(storedUser);
+
+        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userTestdriveDate } = user
+        !salutation ? null : salutation.value = !userSalutation ? salutation.value : userSalutation
+        !firstName ? null : firstName.value = !userFirstName ? firstName.value : userFirstName
+        !lastName ? null : lastName.value = !userLastName ? lastName.value : userLastName;
+        !email ? null : email.value = !userEmail ? email.value : userEmail;
+        !zipCode ? null : zipCode.value = !userZipCode ? zipCode.value : userZipCode;
+        !city ? null : city.value = !userCity ? city.value : userCity;
+        !street ? null : street.value = !userStreet ? street.value : userStreet;
+        !telephone ? null : telephone.value = !userTelephone ? telephone.value : userTelephone;
+        !(ckeckboxes > 0) ? null : setCheckedboxsIds(userChannelPreferences)
+        !series ? null : series.value = !userSeries ? series.value : userSeries;
+        !model ? null : model.value = !userModel ? model.value : userModel;
+        !testdriveDate ? null : testdriveDate.value = !userTestdriveDate ? testdriveDate.value : userTestdriveDate;
+        !planedPurchase ? null : planedPurchase.value = !userPlanedPurchase ? planedPurchase.value : userPlanedPurchase;
+
+    }
+    //return user
+}
+
+//get user Info from form inut fields and return userObj
+function getFormUserObj() {
+
+    let salutation = document.getElementById("salutation");
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+    let email = document.getElementById("email");
+    let zipCode = document.getElementById("zipCode");
+    let city = document.getElementById("city");
+    let street = document.getElementById("street");
+    let telephone = document.getElementById("telephone");
+
+    let series = document.getElementById("serie");
+    let model = document.getElementById("model");
+    let planedPurchase = document.getElementById("planedPurchase");
+    let testdriveDate = document.getElementById("testdriveDate");
+
+    user = {
+        "userSalutation": !salutation ? null : salutation?.value,
+        "userGender": !salutation ? null : salutation?.value !== 0 ? salutation?.value === 'Mr' ? 'male' : 'female' : '',
+        "userFirstName": !firstName ? null : firstName?.value,
+        "userLastName": !lastName ? null : lastName?.value,
+        "userEmail": !email ? null : email?.value,
+        "userZipCode": zipCode === undefined ? null : zipCode?.value,
+        "userCity": !city ? null : city?.value,
+        "userStreet": !street ? null : street?.value,
+        "userTelephone": !telephone ? null : telephone?.value,
+        "userChannelPreferences": getCheckedboxsIds(),
+        "userSeries": !series ? null : series.value === '' ? "BMW X5" : series?.value,
+        "userModel": !model ? null : model.value === '' ? "BMW X5 xDrive40d" : model?.value,
+        "userTestdriveDate": !testdriveDate ? null : testdriveDate.value,
+        "userPlanedPurchase": !planedPurchase ? null : planedPurchase.value,
+    }
+    return user
+}
+
+function updateStoredUserObj(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
+
+
 // register form
 function registerForm() {
+    //
     let registrationForm = document.getElementById("registration-form");
+
+    //prefill fields with storedUser if value exist
+    getStoredUserObj()
+    customSelect();
 
     registrationForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let salutation = document.getElementById("salutation");
-        let firstName = document.getElementById("firstName");
-        let lastName = document.getElementById("lastName");
-        let email = document.getElementById("email");
-        const gender = salutation.value !== 0 ? salutation.value === 'Mr' ? 'male' : 'female' : ''
+        //get value from form fields
+        user = getFormUserObj()
+        const { userSalutation, userGender, userFirstName, userLastName, userEmail, userChannelPreferences } = user
 
-        if (firstName.value == "" || lastName.value == "" || email.value == "") {
-            alert("Please enter: Firstname, Lastname and email");
+        if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false) {
+            alert("Please enter: Firstname, Lastname and valid email");
         } else {
-
             trackRegisterObj = {
                 "event": "registrationComplete",
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "registration",
-                    "userSalutation": salutation.value,
-                    "userGender": gender,
-                    "userFirstName": firstName.value,
-                    "userLastName": lastName.value,
-                    "userEmail": email.value,
-                    "userChannelPreferences": getCheckedboxsIds()
+                    "userSalutation": userSalutation,
+                    "userGender": userGender,
+                    "userFirstName": userFirstName,
+                    "userLastName": userLastName,
+                    "userEmail": userEmail,
+                    "userChannelPreferences": userChannelPreferences
                 }
             }
             adobeDataLayer.push(Object.assign(trackRegisterObj));
+
+            //update storedUser with new values
+            updateStoredUserObj(user)
+
 
             console.log('adobeDataLayer updated (registration-form, RuleName: registrationComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
@@ -56,20 +147,25 @@ function registerForm() {
 function loginForm() {
     let loginForm = document.getElementById("login-form");
 
+    //prefill fields with storedUser if value exist
+    getStoredUserObj()
+
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        //get value from form fields
+        user = getFormUserObj()
+        const { userEmail } = user
 
-        let email = document.getElementById("email");
 
-        if (email.value == "") {
-            alert("Please enter: email");
+        if (ValidateEmail(userEmail) === false) {
+            alert("Please enter: valid email");
         } else {
 
             trackLoginObj = {
                 "event": "loginComplete",
                 "eventInfo": {
                     "id": generateUUID(),
-                    "userEmail": email.value,
+                    "userEmail": userEmail,
                     "formName": "login"
                 },
             }
@@ -92,22 +188,21 @@ function loginForm() {
 function requestOfferForm() {
     let requestOfferForm = document.getElementById("request-offer-form");
 
+    //prefill fields with storedUser if value exist
+    getStoredUserObj()
+    customSelect();
+
     requestOfferForm.addEventListener("submit", (e) => {
+
         e.preventDefault();
 
-        let series = document.getElementById("serie");
-        let model = document.getElementById("model");
-        let firstName = document.getElementById("firstName");
-        let lastName = document.getElementById("lastName");
-        let zipCode = document.getElementById("zipCode");
-        let city = document.getElementById("city");
-        let street = document.getElementById("street");
-        let email = document.getElementById("email");
-        let telephone = document.getElementById("telephone");
-        let planedPurchase = document.getElementById("planedPurchase");
-        console.log("fired", series.value)
-        if (firstName.value == "" || lastName.value == "" || email.value == "") {
-            alert("Please enter: Firstname, Lastname and email");
+        //get value from form fields
+        user = getFormUserObj()
+        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase } = user
+
+
+        if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false) {
+            alert("Please enter: Firstname, Lastname and valid email");
         } else {
 
             trackOfferObj = {
@@ -115,24 +210,29 @@ function requestOfferForm() {
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
-                    "userSeries": series.value === '' ? "BMW X5" : series.value,
-                    "userModel": model.value === '' ? "BMW X5 xDrive40d" : model.value,
-                    "userFirstName": firstName.value,
-                    "userLastName": lastName.value,
-                    "userZipCode": zipCode.value,
-                    "userCity": city.value,
-                    "userStreet": street.value,
-                    "userTelephone": telephone.value,
-                    "userEmail": email.value,
-                    "userPlanedPurchase": planedPurchase.value,
-                    "userChannelPreferences": getCheckedboxsIds()
+                    "userSeries": userSeries,
+                    "userModel": userModel,
+                    "userSalutation": userSalutation,
+                    "userFirstName": userFirstName,
+                    "userLastName": userLastName,
+                    "userZipCode": userZipCode,
+                    "userCity": userCity,
+                    "userStreet": userStreet,
+                    "userTelephone": userTelephone,
+                    "userEmail": userEmail,
+                    "userPlanedPurchase": userPlanedPurchase,
+                    "userChannelPreferences": userChannelPreferences
                 }
             }
 
             adobeDataLayer.push(Object.assign(trackOfferObj));
 
+            //update storedUser with new values
+            updateStoredUserObj(user)
+
             console.log('adobeDataLayer updated (request-offer-form, RuleName: requestOfferComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
+            salutation.value = "";
             firstName.value = "";
             lastName.value = "";
             zipCode.value = "";
@@ -153,23 +253,20 @@ function requestOfferForm() {
 function requestTestdriveForm() {
     let requestTestdriveForm = document.getElementById("request-testdrive-form");
 
+    //prefill fields with storedUser if value exist
+    getStoredUserObj()
+    customSelect();
+
     requestTestdriveForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let series = document.getElementById("serie");
-        let model = document.getElementById("model");
-        let testdriveDate = document.getElementById("testdriveDate");
-        let firstName = document.getElementById("firstName");
-        let lastName = document.getElementById("lastName");
-        let zipCode = document.getElementById("zipCode");
-        let city = document.getElementById("city");
-        let street = document.getElementById("street");
-        let email = document.getElementById("email");
-        let telephone = document.getElementById("telephone");
-        let planedPurchase = document.getElementById("planedPurchase");
+        //get value from form fields
+        user = getFormUserObj()
+        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userTestdriveDate } = user
 
-        if (firstName.value == "" || lastName.value == "" || email.value == "" || testdriveDate.value == "") {
-            alert("Please enter: Testdrive Date, Firstname, Lastname and email");
+
+        if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false || userTestdriveDate == "") {
+            alert("Please enter: Firstname, Lastname and valid email and testdrive date");
         } else {
 
             trackTestdriveObj = {
@@ -177,22 +274,26 @@ function requestTestdriveForm() {
                 "eventInfo": {
                     "id": generateUUID(),
                     "formName": "request-offer",
-                    "userSeries": series.value === '' ? "BMW X5" : series.value,
-                    "userModel": model.value === '' ? "BMW X5 xDrive40d" : model.value,
-                    "userTestdriveDate": testdriveDate.value,
-                    "userFirstName": firstName.value,
-                    "userLastName": lastName.value,
-                    "userZipCode": zipCode.value,
-                    "userCity": city.value,
-                    "userStreet": street.value,
-                    "userTelephone": telephone.value,
-                    "userEmail": email.value,
-                    "userPlanedPurchase": planedPurchase.value,
-                    "userChannelPreferences": getCheckedboxsIds()
+                    "userSeries": userSeries,
+                    "userModel": userModel,
+                    "userTestdriveDate": userTestdriveDate,
+                    "userSalutation": userSalutation,
+                    "userFirstName": userFirstName,
+                    "userLastName": userLastName,
+                    "userZipCode": userZipCode,
+                    "userCity": userCity,
+                    "userStreet": userStreet,
+                    "userTelephone": userTelephone,
+                    "userEmail": userEmail,
+                    "userPlanedPurchase": userPlanedPurchase,
+                    "userChannelPreferences": userChannelPreferences
                 }
             }
 
             adobeDataLayer.push(Object.assign(trackTestdriveObj));
+
+            //update storedUser with new values
+            updateStoredUserObj(user)
 
             console.log('adobeDataLayer updated (request-testdrive-form, RuleName: requestTestdriveComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
 
@@ -229,6 +330,13 @@ function getCheckedboxsIds() {
     const checked = document.querySelectorAll('input[name="check"]:checked')
     selected = Array.from(checked).map(x => x.id)
     return selected
+}
+//set checked checkboxes
+function setCheckedboxsIds(channel) {
+    channel.map((c) => {
+        console.log(c)
+        document.getElementById(c).checked = true
+    })
 }
 
 function customSelect(id) {
@@ -327,5 +435,17 @@ function generateUUID() { // Public Domain/MIT
         }
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
+}
+
+function ValidateEmail(mail) {
+    const test = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (test.test(mail)) {
+
+        console.log('invalid')
+        return (true)
+    } else {
+        console.log('valid')
+        return (false)
+    }
 }
 
