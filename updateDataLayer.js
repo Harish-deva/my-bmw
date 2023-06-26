@@ -28,7 +28,6 @@ function getStoredUserObj() {
     let user = null
     storedUser = localStorage.getItem('user')
     if (storedUser) {
-        console.log('storedUser', storedUser)
         //prefill form
         user = JSON.parse(storedUser);
 
@@ -322,7 +321,6 @@ function requestTestdriveForm() {
 function redirectHash(r) {
     const url = window.location.hash
     const redirect = !url ? r + '.html' : url.split('/')[1] + '.html'
-    //console.log('redirect: ', redirect)
     location.href = redirect
 }
 //get checked checkboxes
@@ -334,7 +332,6 @@ function getCheckedboxsIds() {
 //set checked checkboxes
 function setCheckedboxsIds(channel) {
     channel.map((c) => {
-        console.log(c)
         document.getElementById(c).checked = true
     })
 }
@@ -441,10 +438,8 @@ function ValidateEmail(mail) {
     const test = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (test.test(mail)) {
 
-        console.log('invalid')
         return (true)
     } else {
-        console.log('valid')
         return (false)
     }
 }
