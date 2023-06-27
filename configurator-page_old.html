@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow" />
+  <link id="favicon" rel="icon" href="https://customer.bmwgroup.com/oneid/oneidconfig/assets/brand/bmw/bmw_favicon.ico">
+  <title>BMW Configuration</title>
+  <script async src="https://assets.adobedtm.com/5eef5b667374/31ec2769917a/launch-50aa95111531-development.min.js"></script>
+  
+  <style>
+  
+    /* .bg-image-container {
+      position: relative;width: 100%;
+      padding-top: 100%;
+      background-size: contain;
+      background-image: url("configurator-page-1.png");
+      background-repeat: no-repeat;
+    } */
+
+    .configurator {
+      display: flex;
+      flex-wrap: wrap
+    }
+    .configurator .top-nav{
+      width:100%;
+      position: relative;
+    }
+    .configurator .body{
+      width:80%
+    }
+    .configurator .side-nav{
+      width:20%;
+      position: relative;
+    }
+    .configurator .bottom-nav{
+      width:100%;
+      position: relative;
+    }
+    .link {
+      position:absolute;
+      background-color: rgba(0, 0, 0, .02);
+      border-radius: 5%;
+    }
+    .link:hover {background-color: rgba(0, 0, 0, .10);}
+    
+  </style>
+</head>
+
+<body>
+  <!-- update adobeDataLayer, from and click eventlistener-->
+  <script>
+    let dynamicTrackingObj = {
+      event: 'aem page loaded',
+      page: {
+        attributes: {
+          brand: "bmw",
+          pageTitle: "BMW Configuration",
+          timeZone: ""
+        },
+        pageInfo: {
+          geoRegion: "",
+          language: "",
+          pageName: "BMW Configuration",
+          pageID: 'configurator-page',
+          referringURL: document.referrer,
+          version: 'acdl: 2023\u002D05\u002D11T10:11:31.657+02:00',
+          sysEnv: 'prod',
+        },
+        category: {
+          pageType: 'content\u002Dpage',
+          primaryCategory: "configuration",
+          subCategory1: "content",
+          subCategory2: "",
+          subCategory3: ""
+        }
+
+      }
+    }
+  </script>
+    <script src="updateDataLayer.js"></script>
+  
+
+    <div class="configurator">
+      <div class="top-nav">
+        <img src="configurator_files/configurator-top-nav.png" width="100%"/>
+        <a href="home.html"><div class="link" style="right: 2%; top: 13%; width: 5%; height: 70%;"></div></a>
+      </div>
+      <div class="body">
+        <img src="configurator_files/configurator-body.png"  width="100%"/>
+      </div>
+      <div class="side-nav">
+        <img src="configurator_files/configurator-side-nav.png" style="width: 100%; height: auto;" />
+          
+          <a href="login.html"><div class="link" style="left: 7%; top: 50%; width: 86%; height: 5%;"></div></a>
+          <a href="neuwagen-onlinekauf.html"><div class="link" style="left: 7%; top: 60%; width: 86%;"></div></a>
+          <a href="angebot-anfordern.html"><div class="link" style="left: 7%; top: 66.5%; width: 86%; height: 8%;"></div></a>
+          <a href="testdrive-request.html"><div class="link" style="left: 7%; top: 77%; width: 86%; height: 8%;"></div></a>
+      </div>
+
+      <div class="bottom-nav">
+        <img src="configurator_files/configurator-bottom-nav1.png" style="width: 100%; height: auto;" />
+        <a href="checkout-page.html"><div class="link" style="right: 7%; top: 10%; width: 15%; height: 30%;"></div></a>
+        <a href="finanzieren.html"><div class="link" style="right: 30.8%; top: 13.5%; width: 12%; height: 25%; "></div></a>
+      </div>
+    </div>
+  
+</body>
+<footer>
+</footer>
+
+</html>

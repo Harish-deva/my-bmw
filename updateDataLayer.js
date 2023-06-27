@@ -320,7 +320,7 @@ function requestTestdriveForm() {
 //takes default redirect as string (without html)
 function redirectHash(r) {
     const url = window.location.hash
-    const redirect = !url ? r + '.html' : url.split('/')[1] + '.html'
+    const redirect = !url ? r + '.html' : url.split('/')[1] + '.html#/' + url.split('/')[2]
     location.href = redirect
 }
 //get checked checkboxes
