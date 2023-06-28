@@ -82,6 +82,7 @@ function getFormUserObj() {
         "userModel": !model ? null : model.value === '' ? "BMW X5 xDrive40d" : model?.value,
         "userTestdriveDate": !testdriveDate ? null : testdriveDate.value,
         "userPlanedPurchase": !planedPurchase ? null : planedPurchase.value,
+        "userCarConfig": getCarObj()
     }
     return user
 }
@@ -105,7 +106,7 @@ function registerForm() {
 
         //get value from form fields
         user = getFormUserObj()
-        const { userSalutation, userGender, userFirstName, userLastName, userEmail, userChannelPreferences } = user
+        const { userSalutation, userGender, userFirstName, userLastName, userEmail, userChannelPreferences, userCarConfig } = user
 
         if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false) {
             alert("Please enter: Firstname, Lastname and valid email");
@@ -120,7 +121,8 @@ function registerForm() {
                     "userFirstName": userFirstName,
                     "userLastName": userLastName,
                     "userEmail": userEmail,
-                    "userChannelPreferences": userChannelPreferences
+                    "userChannelPreferences": userChannelPreferences,
+                    userCarConfig
                 }
             }
             adobeDataLayer.push(Object.assign(trackRegisterObj));
@@ -197,7 +199,7 @@ function requestOfferForm() {
 
         //get value from form fields
         user = getFormUserObj()
-        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase } = user
+        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userCarConfig } = user
 
 
         if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false) {
@@ -220,7 +222,8 @@ function requestOfferForm() {
                     "userTelephone": userTelephone,
                     "userEmail": userEmail,
                     "userPlanedPurchase": userPlanedPurchase,
-                    "userChannelPreferences": userChannelPreferences
+                    "userChannelPreferences": userChannelPreferences,
+                    userCarConfig
                 }
             }
 
@@ -261,7 +264,7 @@ function requestTestdriveForm() {
 
         //get value from form fields
         user = getFormUserObj()
-        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userTestdriveDate } = user
+        const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userTestdriveDate, userCarConfig } = user
 
 
         if (userFirstName == "" || userLastName == "" || ValidateEmail(userEmail) === false || userTestdriveDate == "") {
@@ -285,7 +288,8 @@ function requestTestdriveForm() {
                     "userTelephone": userTelephone,
                     "userEmail": userEmail,
                     "userPlanedPurchase": userPlanedPurchase,
-                    "userChannelPreferences": userChannelPreferences
+                    "userChannelPreferences": userChannelPreferences,
+                    userCarConfig
                 }
             }
 
@@ -318,6 +322,12 @@ function requestTestdriveForm() {
 //utilities
 //redirect with url hash
 //takes default redirect as string (without html)
+
+function getCarObj() {
+    const carConfig = JSON.parse(localStorage.getItem('carConfig'));
+    return carConfig
+}
+
 function redirectHash(r) {
     const url = window.location.hash
     const redirect = !url ? r + '.html' : url.split('/')[1] + '.html#/' + url.split('/')[2]
