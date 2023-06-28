@@ -1,4 +1,5 @@
 const configstart = {
+    state: 0,
     event: "Configurator Start",
     page: {
         body: "body-configstart.png",
@@ -18,6 +19,7 @@ const configstart = {
     }
 }
 const config1 = {
+    state: 1,
     event: "Configurator Engagement",
     page: {
         body: "body-config1.png",
@@ -37,6 +39,7 @@ const config1 = {
     }
 }
 const config2 = {
+    state: 2,
     event: "Configurator Engagement",
     page: {
         body: "body-config2.png",
@@ -50,12 +53,13 @@ const config2 = {
     data: {
         modelVariation: "M Sportpaket ",
         modelType: "BMW  X5 xDrive40d",
-        color: "BMW Individual Ametrin metallic (P0X1B)",
-        rim: "21” M LMR V-Speiche 915 M Bicolor / MB und Notlaufeigenschaften (S01G6)",
+        color: "BMW Individual Tansanitblau metallic (P0C3Z)",
+        rim: "22” BMW Indiv.LMR Vielspeiche 745 I Bicolor / MB (S01W7)",
         price: "104050",
     }
 }
 const config3 = {
+    state: 3,
     event: "Configurator Engagement",
     page: {
         body: "body-config3.png",
@@ -69,13 +73,14 @@ const config3 = {
     data: {
         modelVariation: "M Sportpaket ",
         modelType: "BMW  X5 xDrive40d",
-        color: "BMW Individual Ametrin metallic (P0X1B)",
-        rim: "22” M LMR Doppelspeiche 742 M Bicolor / MB",
+        color: "BMW Individual Tansanitblau metallic (P0C3Z)",
+        rim: "22” M LMR Doppelspeiche 742 M Bicolor / MB (S01PA)",
         price: "100470",
     }
 }
 
 const configend = {
+    state: 4,
     event: "Configurator Complete",
     page: {
         body: "body-configend.png",
@@ -89,36 +94,43 @@ const configend = {
     data: {
         modelVariation: "M Sportpaket ",
         modelType: "BMW  X5 xDrive40d",
-        color: "BMW Individual Ametrin metallic (P0X1B)",
-        rim: "22” M LMR Doppelspeiche 742 M Bicolor / MB",
+        color: "BMW Saphirschwarz metallic (P0475)",
+        rim: "22” M LMR Doppelspeiche 742 M Bicolor / MB (S01PA)",
         price: "102380",
     }
 }
-configurator()
+
+loadConfigurator()
+
+function loadConfigurator() {
+    const initialConfig = localStorage.getItem('configState')
+    const config = !initialConfig ? 'configstart' : initialConfig;
+    configurator(parseInt(config))
+}
 
 function configurator(config) {
-    config = !config ? window.location.hash.split('/')[1] : config
+
+    console.log('configurator: ', config)
     let configObj
     switch (config) {
-        case 'configstart':
+        case 0:
             configObj = configstart
             break;
-        case 'config1':
+        case 1:
             configObj = config1
             break;
-        case 'config2':
+        case 2:
             configObj = config2
             break;
-        case 'config3':
+        case 3:
             configObj = config3
             break;
-        case 'configend':
+        case 4:
             configObj = configend
             break;
         default:
             configObj = configstart
     }
-
     loadImages(configObj)
     storeCarObj(configObj)
 }
@@ -145,6 +157,10 @@ function storeCarObj(config) {
     }
     localStorage.setItem('carConfig', JSON.stringify(carConfig));
 
+    //store config state to retrieve it on pageLoad
+    const configState = config.state
+    localStorage.setItem('configState', JSON.stringify(configState));
+
     //update userObject
     storedUser = localStorage.getItem('user')
     if (storedUser) {
@@ -163,25 +179,4 @@ function storeCarObj(config) {
     }
     adobeDataLayer.push(Object.assign(trackCarConfigObj));
     console.log('adobeDataLayer updated (registration-form, RuleName: registrationComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
-}
-
-
-const jsonTemplate = {
-    page: {
-        body: "",
-        bottomNav: "",
-        sideNavModel: "",
-        sideNavMotor: "",
-        sideNavRim: "",
-        sideNavColor: "",
-        sideNavSummary: "",
-    },
-    data: {
-        modelVariation: "Serie",
-        modelType: "",
-        color: "",
-        rim: "",
-        price: "",
-        event: "Configurator Start"
-    }
 }
