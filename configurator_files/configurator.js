@@ -104,12 +104,10 @@ loadConfigurator()
 
 function loadConfigurator() {
     const initialConfig = localStorage.getItem('configState')
-    const config = !initialConfig ? 'configstart' : initialConfig;
-    configurator(parseInt(config))
+    configurator(parseInt(initialConfig))
 }
 
-function configurator(config) {
-
+function getConfig(config) {
     console.log('configurator: ', config)
     let configObj
     switch (config) {
@@ -131,6 +129,11 @@ function configurator(config) {
         default:
             configObj = configstart
     }
+    return configObj
+}
+
+function configurator(config) {
+    const configObj = getConfig(config)
     loadImages(configObj)
     storeCarObj(configObj)
 }
@@ -146,7 +149,7 @@ function loadImages(config) {
     document.querySelector('#summary img').src = path + config.page.sideNavSummary
 }
 
-function storeCarObj(config) {
+function storeCarObj(config, purchase) {
     //store car config in localStorage
     const carConfig = {
         carModelVariation: config.data.modelVariation,
@@ -171,12 +174,22 @@ function storeCarObj(config) {
     }
 
     //update Adobe DataLayer
+    updateAdobeDataLayer(config.event)
+}
+
+function updateAdobeDataLayer(event) {
+    const carConfig = JSON.parse(localStorage.getItem('carConfig'))
     const id = generateUUID()
     const eventInfo = { ...carConfig, id }
     trackCarConfigObj = {
-        "event": config.event,
+        "event": event,
         eventInfo
     }
     adobeDataLayer.push(Object.assign(trackCarConfigObj));
-    console.log('adobeDataLayer updated (registration-form, RuleName: registrationComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
+    console.log('adobeDataLayer updated (configurator, RuleName: registrationComplete). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
+
+}
+
+function purchase() {
+    updateAdobeDataLayer('Online Purchase')
 }
