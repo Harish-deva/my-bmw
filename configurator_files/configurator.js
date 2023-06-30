@@ -191,5 +191,34 @@ function updateAdobeDataLayer(event) {
 }
 
 function purchase() {
-    updateAdobeDataLayer('Online Purchase')
+    //get value from form fields
+    user = getFormUserObj()
+    const { userSalutation, userFirstName, userLastName, userEmail, userChannelPreferences, userZipCode, userCity, userStreet, userTelephone, userSeries, userModel, userPlanedPurchase, userCarConfig } = user
+
+
+    trackUserObj = {
+        "event": "Online Purchase",
+        "eventInfo": {
+            "id": generateUUID(),
+            "userSeries": userSeries,
+            "userModel": userModel,
+            "userSalutation": userSalutation,
+            "userFirstName": userFirstName,
+            "userLastName": userLastName,
+            "userZipCode": userZipCode,
+            "userCity": userCity,
+            "userStreet": userStreet,
+            "userTelephone": userTelephone,
+            "userEmail": userEmail,
+            "userPlanedPurchase": userPlanedPurchase,
+            "userChannelPreferences": userChannelPreferences,
+            userCarConfig
+        }
+    }
+    adobeDataLayer.push(Object.assign(trackUserObj));
+    console.log('adobeDataLayer updated (configurator, RuleName: Online Purchase). Ready to be fired!', '\n', JSON.stringify(adobeDataLayer, null, 2))
+
+    setTimeout(() => {
+        redirectHash('checkout-page')
+    }, "2000");
 }
